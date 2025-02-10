@@ -26,8 +26,9 @@ export default function UserPage() {
         if (existingCard) {
           setCard(existingCard);
         }
-      } catch (error) {
+      } catch (_error) {
         toast.error("Failed to fetch card");
+        console.error(_error);
       } finally {
         setLoading(false);
       }
@@ -46,9 +47,9 @@ export default function UserPage() {
       const newCard = await createCupydCard(userId);
       setCard(newCard);
       toast.success("New card link created!");
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to create card");
-      console.error(error);
+      console.error(_error);
     }
   };
 
@@ -59,8 +60,9 @@ export default function UserPage() {
       const link = `${window.location.origin}/${card.id}`;
       await navigator.clipboard.writeText(link);
       toast.success("Link copied to clipboard!");
-    } catch (error) {
+    } catch (_error) {
       toast.error("Failed to copy link");
+      console.error(_error);
     }
   };
 
