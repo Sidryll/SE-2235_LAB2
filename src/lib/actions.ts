@@ -103,3 +103,14 @@ export async function answerCard(
     throw new Error("Failed to answer card");
   }
 }
+
+export async function getTotalCards(): Promise<number> {
+  try {
+    const cardsRef = collection(db, "cards");
+    const snapshot = await getDocs(cardsRef);
+    return snapshot.size;
+  } catch (error) {
+    console.error("Error getting total cards:", error);
+    throw new Error("Failed to get total cards count");
+  }
+}

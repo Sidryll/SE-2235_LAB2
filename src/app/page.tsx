@@ -3,17 +3,21 @@
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { getTotalCards } from "@/lib/actions";
 import { useRouter } from "next/navigation";
-import { SignInButton } from "@clerk/nextjs";
 
 export default function WelcomePage() {
   const router = useRouter();
   const [cardCount, setCardCount] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCardCount(123); // Example count
-    }, 500);
+    const fetchCards = async () => {
+      const totalCards = await getTotalCards();
+      setCardCount(totalCards); // count
+    };
+
+    fetchCards();
   }, []);
 
   return (
@@ -32,14 +36,25 @@ export default function WelcomePage() {
           Over <span className="font-semibold">{cardCount}</span> cards have
           been created!
         </p>
-        <SignInButton mode="modal">
+        <SignedOut>
+          <SignInButton mode="modal">
+            <Button
+              variant={"default"}
+              className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
+            >
+              Get Started
+            </Button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
           <Button
-            variant={"default"}
+            variant={"outline"}
             className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
+            onClick={() => router.push("/user")}
           >
-            Get Started
+            My Account
           </Button>
-        </SignInButton>
+        </SignedIn>
       </div>
     </div>
   );
