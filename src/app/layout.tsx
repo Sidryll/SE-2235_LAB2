@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Cupyd",
-  description: "My valentine",
+  description: "Shoot your shot this Valentine's Day",
 };
 
 export default function RootLayout({
