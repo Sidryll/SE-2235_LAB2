@@ -1,3 +1,5 @@
+"use client";
+
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
@@ -9,4 +11,4 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
 };
 
-export const firebase = initializeApp(firebaseConfig);
+export const firebase_app = initializeApp(firebaseConfig);

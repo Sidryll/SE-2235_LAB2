@@ -3,8 +3,11 @@
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { SignInButton } from "@clerk/nextjs";
 
 export default function WelcomePage() {
+  const router = useRouter();
   const [cardCount, setCardCount] = useState(0);
 
   useEffect(() => {
@@ -29,15 +32,14 @@ export default function WelcomePage() {
           Over <span className="font-semibold">{cardCount}</span> cards have
           been created!
         </p>
-        <Button
-          variant={"default"}
-          className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
-          onClick={() => {
-            window.location.href = "/login";
-          }}
-        >
-          Get Started
-        </Button>
+        <SignInButton mode="modal">
+          <Button
+            variant={"default"}
+            className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
+          >
+            Get Started
+          </Button>
+        </SignInButton>
       </div>
     </div>
   );
