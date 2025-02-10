@@ -30,7 +30,7 @@ export default function WelcomePage() {
           Welcome to Cupyd!
         </h1>
         <p className="mb-4 text-base sm:text-lg">
-          Shoot your shot this Valentine's Day
+          Shoot your shot this Valentine&apos;s Day
         </p>
         <p className="mb-6 text-sm text-muted-foreground">
           Over <span className="font-semibold">{cardCount}</span> cards have

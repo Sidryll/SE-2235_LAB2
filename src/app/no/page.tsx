@@ -19,7 +19,7 @@ export default function NoPage() {
         </CardHeader>
         <CardContent className="mt-4 text-center space-y-4">
           <p className="text-lg text-gray-700">
-            That's okay. Not everyone can be the perfect valentine. 🌹
+            That&apos;s okay. Not everyone can be the perfect valentine. 🌹
           </p>
           <p className="text-sm text-gray-500">I appreciate your honesty! 🙏</p>
           <Button variant="default" onClick={() => router.push("/")}>

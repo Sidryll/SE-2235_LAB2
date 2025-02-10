@@ -1,4 +1,5 @@
 "use client";
+// @typescript-eslint/no-unused-vars
 import { SignOutButton, useAuth, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
