@@ -36,25 +36,13 @@ export default function WelcomePage() {
           Over <span className="font-semibold">{cardCount}</span> cards have
           been created!
         </p>
-        <SignedOut>
-          <SignInButton mode="modal">
-            <Button
-              variant={"default"}
-              className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
-            >
-              Get Started
-            </Button>
-          </SignInButton>
-        </SignedOut>
-        <SignedIn>
-          <Button
-            variant={"outline"}
-            className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
-            onClick={() => router.push("/user")}
-          >
-            My Account
-          </Button>
-        </SignedIn>
+        <Button
+          variant={"outline"}
+          className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
+          onClick={() => router.push("/user")}
+        >
+          Get Started
+        </Button>
       </div>
     </div>
   );
