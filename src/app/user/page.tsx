@@ -2,7 +2,6 @@
 
 import { SignOutButton, useAuth, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import {
   createCupydCard,
@@ -67,6 +66,8 @@ export default function UserPage() {
       } catch (_error) {
         // Fallback to execCommand in case of an error with clipboard.writeText
         fallbackCopy(link);
+
+        console.error(_error);
       }
     } else {
       fallbackCopy(link);
@@ -93,6 +94,7 @@ export default function UserPage() {
       }
     } catch (_error) {
       toast.error("Failed to copy link");
+      console.error(_error);
     }
     document.body.removeChild(textarea);
   };
@@ -167,9 +169,9 @@ export default function UserPage() {
             <div className="bg-gray-50 p-3 rounded-lg flex items-center justify-between">
               <div>
                 <span className="font-medium text-gray-600">
-                  Make the "NO" button dodgy
+                  Make the &quot;NO&quot; button dodgy
                 </span>
-                <p className="text-xs">Yes isthe only answer</p>
+                <p className="text-xs">Yes is the only answer</p>
               </div>
               <Switch
                 checked={card.isRejectable}
