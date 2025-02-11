@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { getTotalCards } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
@@ -37,7 +36,7 @@ export default function WelcomePage() {
           been created!
         </p>
         <Button
-          variant={"outline"}
+          variant={"default"}
           className="w-full sm:w-auto rounded-full px-4 sm:px-8 py-3 sm:py-4"
           onClick={() => router.push("/user")}
         >
