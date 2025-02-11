@@ -180,7 +180,7 @@ export default function UserPage() {
                     prev ? { ...prev, isRejectable: !prev.isRejectable } : null
                   );
 
-                  toggleCardRejectable(card.id, !card.isRejectable);
+                  toggleCardRejectable(card.id, card.isRejectable);
                 }}
               />
             </div>
