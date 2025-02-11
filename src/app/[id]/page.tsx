@@ -38,7 +38,7 @@ export default function Home() {
       }
     }
     fetchData();
-  });
+  }, [id, router]);
 
   async function handleAnswer(accepted: boolean) {
     try {
