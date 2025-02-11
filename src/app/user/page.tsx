@@ -143,7 +143,7 @@ export default function UserPage() {
               </div>
               <div className="bg-gray-50 p-3 rounded-lg">
                 <span className="font-medium text-gray-600">Response</span>
-                <p>{card.isAccepted ? "❤️ Yes" : "Waiting"}</p>
+                <p>{card.isAccepted ? "❤️ Yes" : card.isAnswered ? "❌ No" : "Waiting"}</p>
               </div>
               <div className="bg-gray-50 p-3 rounded-lg">
                 <span className="font-medium text-gray-600">Views</span>
