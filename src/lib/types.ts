@@ -4,4 +4,7 @@ export interface CupydCard {
   isAccepted: boolean;
   isAnswered: boolean;
   answeredAt: string | null;
+  isRejectable: boolean;
+  rejectCount: number;
+  viewCount: number;
 }

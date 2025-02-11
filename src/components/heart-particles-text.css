@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+body {
+  background-color: #2b2d42;
+}
+
+.effect-text {
+  font-size: 32px;
+  color: #edf2f4;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+/* New styles to ensure text is in front */
+.main-text {
+  font-family: "Pacifico", cursive;
+  position: relative;
+  z-index: 2;
+}
+
+.tiny-heart {
+  position: absolute;
+  opacity: 0;
+  background-color: #d90429;
+  box-shadow: 0px 0px 50px 4px rgba(239, 35, 60, 0.3);
+  animation: animated-heart infinite ease-in;
+  z-index: 1; /* Hearts will be behind the text */
+}
+
+.tiny-heart::before,
+.tiny-heart::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #d90429;
+}
+
+.tiny-heart::before {
+  transform: translateX(-50%);
+}
+
+.tiny-heart::after {
+  transform: translateY(-50%);
+}
+
+@keyframes animated-heart {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(45deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(0, -40%) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, -1000%) rotate(45deg);
+  }
+}

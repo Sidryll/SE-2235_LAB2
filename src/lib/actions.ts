@@ -8,16 +8,18 @@ import {
   where,
 } from "firebase/firestore";
 import type { CupydCard } from "@/lib/types";
+import { increment } from "firebase/firestore";
+import { getDoc } from "firebase/firestore";
 
 function generateCardId(length: number = 6): string {
   // Prefix for card identification
-  const prefix = "cpd_";
+
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
   let result = "";
   for (let i = 0; i < length; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  return prefix + result;
+  return result;
 }
 
 export async function createCupydCard(userId: string): Promise<CupydCard> {
@@ -27,8 +29,11 @@ export async function createCupydCard(userId: string): Promise<CupydCard> {
     const newCard: Omit<CupydCard, "id"> = {
       isAccepted: false,
       creatorId: userId, // Store the creator's userId
-      isAnswered: true,
+      isAnswered: false,
       answeredAt: null,
+      isRejectable: false,
+      rejectCount: 0,
+      viewCount: 0,
     };
 
     await setDoc(doc(db, "cards", id), newCard);
@@ -67,6 +72,25 @@ export async function getCardByCreatorId(
   }
 }
 
+export async function getCardById(cardId: string): Promise<CupydCard | null> {
+  try {
+    const cardRef = doc(db, "cards", cardId);
+    const docSnap = await getDoc(cardRef);
+
+    if (docSnap.exists()) {
+      return {
+        id: docSnap.id,
+        ...docSnap.data(),
+      } as CupydCard;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching card:", error);
+    throw new Error("Failed to fetch card");
+  }
+}
+
 export async function resetCupydCard(cardId: string): Promise<void> {
   try {
     const cardRef = doc(db, "cards", cardId);
@@ -83,16 +107,12 @@ export async function resetCupydCard(cardId: string): Promise<void> {
   }
 }
 
-export async function answerCard(
-  cardId: string,
-  accept: boolean
-): Promise<void> {
+export async function answerCard(cardId: string): Promise<void> {
   try {
     const cardRef = doc(db, "cards", cardId);
     await setDoc(
       cardRef,
       {
-        isAccepted: accept,
         isAnswered: true,
         answeredAt: new Date().toISOString(),
       },
@@ -104,6 +124,25 @@ export async function answerCard(
   }
 }
 
+export async function acceptCard(
+  cardId: string,
+  accept: boolean
+): Promise<void> {
+  try {
+    const cardRef = doc(db, "cards", cardId);
+    await setDoc(
+      cardRef,
+      {
+        isAccepted: accept,
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.error("Error accepting cupyd card:", error);
+    throw new Error("Failed to accept card");
+  }
+}
+
 export async function getTotalCards(): Promise<number> {
   try {
     const cardsRef = collection(db, "cards");
@@ -112,5 +151,56 @@ export async function getTotalCards(): Promise<number> {
   } catch (error) {
     console.error("Error getting total cards:", error);
     throw new Error("Failed to get total cards count");
+  }
+}
+
+export async function incrementCardReject(cardId: string): Promise<void> {
+  try {
+    const cardRef = doc(db, "cards", cardId);
+    await setDoc(
+      cardRef,
+      {
+        rejectCount: increment(1),
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.error("Error incrementing card view:", error);
+    throw new Error("Failed to increment view count");
+  }
+}
+
+export async function incrementCardView(cardId: string): Promise<void> {
+  try {
+    const cardRef = doc(db, "cards", cardId);
+    await setDoc(
+      cardRef,
+      {
+        viewCount: increment(1),
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.error("Error incrementing card view:", error);
+    throw new Error("Failed to increment view count");
+  }
+}
+
+export async function toggleCardRejectable(
+  cardId: string,
+  rejectable: boolean
+): Promise<void> {
+  try {
+    const cardRef = doc(db, "cards", cardId);
+    await setDoc(
+      cardRef,
+      {
+        isRejectable: rejectable,
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.error("Error toggling card rejectable:", error);
+    throw new Error("Failed to toggle card rejectable");
   }
 }
